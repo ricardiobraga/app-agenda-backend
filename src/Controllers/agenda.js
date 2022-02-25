@@ -33,17 +33,17 @@ export async function insertContact(req, res){
 
         img.mv('./src/uploads/'+fileName, (err) => {
             if (err) {
-                res.send(`<script>alert("falha ao enviar o cadastro"); window.location.href = "http://localhost:3000/";</script>`)  
+                res.send(`<script>alert("falha ao enviar o cadastro"); window.location.href = "https://app-agenda-backend.herokuapp.com/";</script>`)  
             } else {
                 openDb().then(db => {
                     db.run('INSERT INTO agenda (imagePath, name, phoneDDD, phoneNumber, email) VALUES (?,?,?,?,?)', [`${fileName}`, contact.name, contact.phoneDDD, contact.phoneNumber, contact.email ])
                 })
-                res.send(`<script>alert("cadastro enviado com sucesso"); window.location.href = "http://localhost:3000/";</script>`)
+                res.send(`<script>alert("cadastro enviado com sucesso"); window.location.href = "https://app-agenda-backend.herokuapp.com/";</script>`)
             }
         })
         
     } else {
-        res.send(`<script>alert("todos os campos do cadastro devem ser preenchidos"); window.location.href = "http://localhost:3000/";</script>`) 
+        res.send(`<script>alert("todos os campos do cadastro devem ser preenchidos"); window.location.href = "https://app-agenda-backend.herokuapp.com/";</script>`) 
     }
 }
 
@@ -82,9 +82,9 @@ export async function updateInfo(req, res){
                 UPDATE agenda SET imagePath=?, name=?, phoneDDD=?, phoneNumber=?, email=? WHERE id=? `,
                 [fileName, contato.name, contato.phoneDDD, contato.phoneNumber, contato.email, contato.id])
             })
-            res.json({err: "erro"})
+            res.send(`<script>alert("cadastro atualizado com sucesso"); window.location.href = "https://app-agenda-backend.herokuapp.com/";</script>`)
         } else {
-            res.json({sucesso:'sucess'})
+            res.send(`<script>alert("falha ao atualizar o cadastro"); window.location.href = "https://app-agenda-backend.herokuapp.com/";</script>`)
         }
 
     }    
