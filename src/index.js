@@ -22,6 +22,6 @@ let urlEncoderParser = bodyParser.urlencoded({extended: false})
 
 app.use( urlEncoderParser, router)
 
-app.listen(3001, () => {
+app.listen(port, () => {
     console.log(`backend rodando ${port}`);
 })
