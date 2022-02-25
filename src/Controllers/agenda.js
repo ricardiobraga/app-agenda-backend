@@ -73,7 +73,7 @@ export async function deleteContato(req, res){
 export async function updateInfo(req, res){
     
     let contato = req.body
-    console.log(contato.name);
+    
     
     let fileName = `${Date.now()}${contato.imagePath}`
     if(contato.imagePath !== '' && contato.name !== '' && contato.phoneDDD !== '' && contato.phoneNumber !== '' && contato.email !== ''){
@@ -82,9 +82,9 @@ export async function updateInfo(req, res){
                 UPDATE agenda SET imagePath=?, name=?, phoneDDD=?, phoneNumber=?, email=? WHERE id=? `,
                 [fileName, contato.name, contato.phoneDDD, contato.phoneNumber, contato.email, contato.id])
             })
-            res.send(`<script>alert("cadastro atualizado com sucesso"); window.location.href = "https://app-agenda-frontend.vercel.app/";</script>`)
+            res.send({message: "Sucesso"})
         } else {
-            res.send(`<script>alert("falha ao atualizar o cadastro"); window.location.href = "https://app-agenda-frontend.vercel.app/";</script>`)
+            res.send({message: "Erro"})
         }
 
     }    
@@ -94,12 +94,12 @@ export async function updateInfo(req, res){
 
     if( req.files && req.body.id){
         let img = req.files.myFile
-        console.log(img);
-        
+        console.log(req.body)
         openDb().then(db => {
             db.get('SELECT imagePath FROM agenda WHERE id=?', [req.body.id])
             .then(res => {
-                 img.mv('./src/uploads/'+res.imagePath, (err) => {
+                console.log(res)
+                 img.mv("./src/uploads/"+res.imagePath, (err) => {
                     if (err) {
                         console.log("erro");  
                     } else {
